@@ -1,1 +1,15 @@
-<ui-view></ui-view>
+<md-toolbar class="md-whiteframe-4dp">
+  <div class="md-toolbar-tools">
+    <h2 flex>
+      Projeto
+    </h2>
+    <a ui-sref="login">
+      <md-button class="md-icon-button">
+        <md-icon>
+          <i class="material-icons">account_circle</i>
+        </md-icon>
+      </md-button>
+    </a>
+  </div>
+</md-toolbar>
+<div layout="column" ui-view></div>
