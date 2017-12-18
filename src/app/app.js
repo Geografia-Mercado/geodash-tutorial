@@ -1,25 +1,17 @@
 import angular from 'angular';
+import uiRouter from '../../node_modules/@uirouter/angularjs/release/angular-ui-router.js'
 
-import '../style/app.css';
+import Config from './config.js'
 
-let app = () => {
-  return {
-    template: require('./app.html'),
-    controller: 'AppCtrl',
-    controllerAs: 'app'
-  }
-};
+import AppDirective from './app.directive.js'
 
-class AppCtrl {
-  constructor() {
-    this.url = 'https://github.com/preboot/angular-webpack';
-  }
-}
+import LoginController from './layout/login/login.controller.js'
 
 const MODULE_NAME = 'app';
 
-angular.module(MODULE_NAME, [])
-  .directive('app', app)
-  .controller('AppCtrl', AppCtrl);
+angular.module(MODULE_NAME, [uiRouter])
+.config(['$stateProvider', Config])
+.directive('app', AppDirective)
+.controller('loginController', LoginController)
 
 export default MODULE_NAME;
