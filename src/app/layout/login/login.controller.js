@@ -1,6 +1,9 @@
 export default class {
   constructor (firebaseService) {
-    this.foo = 10
-    firebaseService.foo()
+    this.firebaseService = firebaseService
+  }
+
+  login (email, password) {
+    this.firebaseService.signIn(email, password)
   }
 }

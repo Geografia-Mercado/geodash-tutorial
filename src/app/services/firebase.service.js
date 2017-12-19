@@ -1,8 +1,10 @@
-import FIREBASE_CONFIG from '../../../envconfig.js'
 import * as firebase from 'firebase'
 export default function () {
   return {
-    foo: _ => console.log('firebase', firebase)
+    signIn: signIn
   }
-  firebase.initializeApp(FIREBASE_CONFIG)
+
+  function signIn (email, password) {
+    firebase.auth().signInWithEmailAndPassword(email, password).then(_ => console.log('resp', _))
+  }
 }
