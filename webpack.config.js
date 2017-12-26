@@ -219,6 +219,10 @@ module.exports = function makeWebpackConfig() {
     contentBase: './src/public',
     stats: 'minimal'
   };
+  config.externals = {
+    cartodb: 'cartodb'
+  };
+
 
   return config;
 }();

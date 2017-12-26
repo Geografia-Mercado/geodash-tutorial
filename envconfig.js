@@ -6,3 +6,6 @@ export const FIREBASE_CONFIG = {
   storageBucket: '',
   messagingSenderId: '143010495186'
 }
+
+export const CARTODB_API_KEY = 'b5785cfe3fbbec1bc797a3e4ce1327edf69787ad'
+export const CARTODB_USER = 'gdm-dev'

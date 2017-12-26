@@ -8,6 +8,8 @@ import '../../node_modules/angular-aria/angular-aria.js'
 import '../../node_modules/angular-messages/angular-messages.js'
 
 import FirebaseService from './services/firebase.service.js'
+import CartodbService from './services/cartodb.service.js'
+
 import AppBoot from './app.boot.js'
 import Config from './config.js'
 import AppDirective from './app.directive.js'
@@ -21,10 +23,11 @@ const MODULE_NAME = 'app';
 angular.module(MODULE_NAME, [uiRouter, 'ngMessages', 'ngAria', 'ngAnimate', 'ngMaterial'])
 .run(AppBoot)
 .factory('firebaseService', FirebaseService)
+.factory('cartodbService', ['$q', '$http', CartodbService])
 .config(['$stateProvider', Config])
 .directive('app', AppDirective)
 .controller('loginController', ['$state', 'firebaseService', LoginController])
-.controller('importController', ['$scope', '$state', '$element', ImportController])
+.controller('importController', ['$q', '$scope', '$state', '$element', 'cartodbService', ImportController])
 .controller('dashboardController', ['$mdSidenav', DashboardController])
 
 export default MODULE_NAME;
