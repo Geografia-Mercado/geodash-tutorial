@@ -1,11 +1,12 @@
 import { FIREBASE_CONFIG } from '../../../envconfig.js'
 import * as firebase from 'firebase'
-export default function ($q, $http) {
+export default function ($q, $http, $state) {
   const DB_URL = FIREBASE_CONFIG.databaseURL
   return {
     signIn: signIn,
     getUserId: getUserId,
     createChild: createChild,
+    getCurrentUserUploads: getCurrentUserUploads,
     handleError: handleError
   }
   function handleError (err) { console.log('err:', err) }
@@ -16,9 +17,8 @@ export default function ($q, $http) {
 
   function createChild (path, childObj) {
     return $q((resolve, _) => {
-      firebase.auth().currentUser.getIdToken().then(
+      getToken().then(
         (token) => {
-          console.log(token)
           $http.post(DB_URL + path + '.json?auth=' + token, childObj).then(httpResp => {
             resolve(httpResp.data.name)
           }).catch(handleError)
@@ -27,7 +27,46 @@ export default function ($q, $http) {
     })
   }
 
+  function getChild (path) {
+    return $q((resolve, _) => {
+      getToken().then(
+        (token) => {
+          $http.get(DB_URL + path + '.json?auth=' + token).then(httpResp => {
+            resolve(httpResp.data)
+          }).catch(handleError)
+        }
+      ).catch(handleError)
+    })
+  }
+
   function getUserId () {
-    return firebase.auth().currentUser.uid
+    let user = firebase.auth().currentUser
+    return (user === null) ? null : user.uid
+  }
+
+  function getToken () {
+    return $q((resolve, _) => {
+      let currentUser = firebase.auth().currentUser
+      if (currentUser === null) {
+        $state.go('login')
+      } else {
+        currentUser.getIdToken().then(token => resolve(token), handleError)
+      }
+    })
+  }
+
+  function getCurrentUserUploads () {
+    let uid = getUserId()
+    let out = {}
+    return $q((resolve, _) => {
+      getChild('/uploads').then(uploads => {
+        Object.keys(uploads)
+        .filter(uploadId => uploads[uploadId].user === uid)
+        .map(uploadId => {
+          out[uploadId] = uploads[uploadId]
+        })
+        resolve(out)
+      })
+    })
   }
 }

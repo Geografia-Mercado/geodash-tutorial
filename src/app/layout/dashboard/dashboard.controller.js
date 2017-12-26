@@ -1,4 +1,5 @@
 export default class {
-  constructor () {
+  constructor (firebaseService) {
+    firebaseService.getCurrentUserUploads().then(uploads => (this.uploads = uploads))
   }
 }

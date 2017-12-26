@@ -22,12 +22,12 @@ const MODULE_NAME = 'app';
 
 angular.module(MODULE_NAME, [uiRouter, 'ngMessages', 'ngAria', 'ngAnimate', 'ngMaterial'])
 .run(['$rootScope', '$mdToast', AppBoot])
-.factory('firebaseService', ['$q', '$http', FirebaseService])
+.factory('firebaseService', ['$q', '$http', '$state', FirebaseService])
 .factory('cartodbService', ['$q', '$http', CartodbService])
 .config(['$stateProvider', Config])
 .directive('app', AppDirective)
 .controller('loginController', ['$state', 'firebaseService', LoginController])
 .controller('importController', ['$q', '$rootScope', '$scope', '$state', '$element', 'cartodbService', 'firebaseService', ImportController])
-.controller('dashboardController', ['$mdSidenav', DashboardController])
+.controller('dashboardController', ['firebaseService', DashboardController])
 
 export default MODULE_NAME;

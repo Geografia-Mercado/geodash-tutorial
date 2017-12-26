@@ -1,8 +1,20 @@
 <md-card>
   <md-card-title>
-    <span class="md-headline">OI</span>
+    <span class="md-headline">Uploads</span>
   </md-card-title>
   <md-card-content>
-    <p>OI</p>
+    <md-list>
+      <md-list-item ng-repeat="(uploadId, upload) in vm.uploads" class="md-2-line">
+        <div class="md-list-item-text">
+          <h3>criado em {{ upload.createdAt | date: 'dd/MM/yyyy HH:mm'}}</h3>
+          <p>{{ upload.addresses.length }} endereços</p>
+        </div>
+        <md-button class="md-icon-button md-secondary">
+          <md-icon>
+            <i class="material-icons">map</i>
+          </md-icon>
+        </md-button>
+      </md-list-item>
+    </md-list>
   </md-card-content>
 </md-card>
