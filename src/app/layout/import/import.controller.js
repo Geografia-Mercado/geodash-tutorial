@@ -1,7 +1,9 @@
 export default class {
-  constructor ($q, $scope, $state, $element, cartodbService, firebaseService) {
+  constructor ($q, $rootScope, $scope, $state, $element, cartodbService, firebaseService) {
     this.$q = $q
+    this.$rootScope = $rootScope
     this.$scope = $scope
+    this.$state = $state
     this.cartodbService = cartodbService
     this.firebaseService = firebaseService
     this.addresses = []
@@ -44,8 +46,8 @@ export default class {
           createdAt: {'.sv': 'timestamp'}
         }
         this.firebaseService.createChild('/uploads', uploadObj).then(_ => {
-          console.log('upload concluido')
-          this.state.go('dashboard')
+          this.$rootScope.showMessage('Concluido')
+          this.$state.go('dashboard')
         })
       })
     })

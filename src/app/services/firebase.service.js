@@ -8,8 +8,6 @@ export default function ($q, $http) {
     createChild: createChild,
     handleError: handleError
   }
-  firebase.initializeApp(FIREBASE_CONFIG)
-
   function handleError (err) { console.log('err:', err) }
 
   function signIn (email, password) {
