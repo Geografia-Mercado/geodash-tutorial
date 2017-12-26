@@ -1,0 +1,28 @@
+<md-card>
+  <md-card-title>
+    <span class="md-headline">Importar endereços</span>
+  </md-card-title>
+  <md-card-content layout="column">
+    <div layout="row" layout-align="start none">
+      <input class="ng-hide" id="input-file" type="file">
+      <label for="input-file" class="md-button md-raised md-primary">+ arquivo</label>
+    </div>
+    <div layout="row" layout-align="center">
+      <md-progress-circular ng-show="vm.loading" md-mode="indeterminate"></md-progress-circular>
+    </div>
+    <md-list>
+      <md-list-item ng-repeat="address in vm.addresses track by $index">
+        <span>{{ $index + 1 }} - {{ address }}</span>
+        <md-button class="md-icon-button md-secondary" ng-click="vm.popAddress($index)">
+          <md-icon>
+            <i class="material-icons">backspace</i>
+          </md-icon>
+        </md-button>
+      </md-list-item>
+    </md-list>
+  </md-card-content>
+  <md-card-actions layout="row" layout-align="center" ng-show="vm.addresses.length">
+    <md-button class="md-primary md-raised">geocode</md-button>
+    <md-button class="md-accent md-raised">cancelar</md-button>
+  </md-card-actions>
+</md-card>

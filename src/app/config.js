@@ -6,5 +6,22 @@ export default function ($stateProvider) {
     controller: 'loginController',
     controllerAs: 'vm'
   }
-  $stateProvider.state(loginState)
+  let dashboardState = {
+    name: 'dashboard',
+    url: '/dashboard',
+    template: require('./layout/dashboard/dashboard.template.html'),
+    controller: 'dashboardController',
+    controllerAs: 'vm'
+  }
+  let importState = {
+    name: 'import',
+    url: '/import',
+    template: require('./layout/import/import.template.html'),
+    controller: 'importController',
+    controllerAs: 'vm'
+  }
+  $stateProvider
+  .state(loginState)
+  .state(dashboardState)
+  .state(importState)
 }
