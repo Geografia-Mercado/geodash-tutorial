@@ -29,7 +29,7 @@ angular.module(MODULE_NAME, [uiRouter, 'ngMessages', 'ngAria', 'ngAnimate', 'ngM
 .directive('app', AppDirective)
 .controller('loginController', ['$state', 'firebaseService', LoginController])
 .controller('importController', ['$q', '$rootScope', '$scope', '$state', '$element', 'cartodbService', 'firebaseService', ImportController])
-.controller('dashboardController', ['firebaseService', DashboardController])
-.controller('mapController', ['cartodbService', MapController])
+.controller('dashboardController', ['$state', 'firebaseService', DashboardController])
+.controller('mapController', ['$stateParams', 'firebaseService', 'cartodbService', MapController])
 
 export default MODULE_NAME;

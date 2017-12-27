@@ -22,7 +22,7 @@ export default function ($stateProvider) {
   }
   let mapState = {
     name: 'map',
-    url: '/map',
+    url: '/map/:uploadId',
     template: require('./layout/map/map.template.html'),
     controller: 'mapController',
     controllerAs: 'vm'

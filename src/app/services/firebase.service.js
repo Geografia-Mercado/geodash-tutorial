@@ -7,6 +7,7 @@ export default function ($q, $http, $state) {
     getUserId: getUserId,
     createChild: createChild,
     getCurrentUserUploads: getCurrentUserUploads,
+    getAddressesByUploadId: getAddressesByUploadId,
     handleError: handleError
   }
   function handleError (err) { console.log('err:', err) }
@@ -67,6 +68,16 @@ export default function ($q, $http, $state) {
         })
         resolve(out)
       })
+    })
+  }
+
+  function getAddressesByUploadId (uploadId) {
+    return getChild('/uploads/' + uploadId).then(uploadObj => {
+      let promises = []
+      uploadObj.addresses.map(addressId => {
+        promises.push(getChild('/addresses/' + addressId))
+      })
+      return $q.all(promises)
     })
   }
 }
