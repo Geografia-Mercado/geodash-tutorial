@@ -9,11 +9,13 @@
           <h3>criado em {{ upload.createdAt | date: 'dd/MM/yyyy HH:mm'}}</h3>
           <p>{{ upload.addresses.length }} endereços</p>
         </div>
-        <md-button class="md-icon-button md-secondary">
-          <md-icon>
-            <i class="material-icons">map</i>
-          </md-icon>
-        </md-button>
+          <md-button class="md-icon-button md-secondary">
+            <a ui-sref="map">
+              <md-icon>
+                <i class="material-icons">map</i>
+              </md-icon>
+            </a>
+          </md-button>
       </md-list-item>
     </md-list>
   </md-card-content>

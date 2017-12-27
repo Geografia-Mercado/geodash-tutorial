@@ -20,8 +20,16 @@ export default function ($stateProvider) {
     controller: 'importController',
     controllerAs: 'vm'
   }
+  let mapState = {
+    name: 'map',
+    url: '/map',
+    template: require('./layout/map/map.template.html'),
+    controller: 'mapController',
+    controllerAs: 'vm'
+  }
   $stateProvider
   .state(loginState)
   .state(dashboardState)
   .state(importState)
+  .state(mapState)
 }

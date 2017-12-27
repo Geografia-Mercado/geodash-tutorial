@@ -16,7 +16,8 @@ import AppDirective from './app.directive.js'
 
 import LoginController from './layout/login/login.controller.js'
 import ImportController from './layout/import/import.controller.js'
-import DashboardController from './layout/dashboard/dashboard.controller.js' // XXX
+import DashboardController from './layout/dashboard/dashboard.controller.js'
+import MapController from './layout/map/map.controller.js'
 
 const MODULE_NAME = 'app';
 
@@ -29,5 +30,6 @@ angular.module(MODULE_NAME, [uiRouter, 'ngMessages', 'ngAria', 'ngAnimate', 'ngM
 .controller('loginController', ['$state', 'firebaseService', LoginController])
 .controller('importController', ['$q', '$rootScope', '$scope', '$state', '$element', 'cartodbService', 'firebaseService', ImportController])
 .controller('dashboardController', ['firebaseService', DashboardController])
+.controller('mapController', ['cartodbService', MapController])
 
 export default MODULE_NAME;
