@@ -6,10 +6,10 @@ export default function ($q, $http) {
   const SQL_API_ROOT_ENDPOINT = 'https://' + CARTODB_USER + '.carto.com/api/v2/sql?api_key=' + CARTODB_API_KEY
   const MAP_URL = "https://{s}.maps.nlp.nokia.com/maptile/2.1/maptile/newest/normal.day.grey/{z}/{x}/{y}/256/png8?lg=eng"
   return {
-    foo: () => console.log('carto', cartodb),
     geocodeAddress: geocodeAddress,
     createMap: createMap,
-    drawMarker: drawMarker
+    drawMarker: drawMarker,
+    drawRoute: drawRoute
   }
   let map = null
   let mapTileLayer = null
@@ -29,7 +29,6 @@ export default function ($q, $http) {
     })
     mapTileLayer = cartodb.L.tileLayer(MAP_URL + '&token=' + CARTODB_API_KEY + '&app_id=' + HERE_MAP_CONFIG.app_id, HERE_MAP_CONFIG).addTo(map, 0)
     map.zoomControl.setPosition('bottomright')
-    console.log('map', map)
     resizeMap()
   }
 
@@ -52,5 +51,19 @@ export default function ($q, $http) {
 
   function drawMarker (lat, lon, msg) {
     cartodb.L.marker([lat, lon], {title: msg}).addTo(map)
+  }
+
+  function drawRoute (coords) {
+    return $q((resolve, reject) => {
+      let query = 'SELECT duration, length, ST_AsGeoJSON(shape) as shape FROM cdb_route_with_waypoints(ARRAY['
+      coords.map((coord, i) => {
+        query += (i) ? `, 'POINT(${coord[0]} ${coord[1]})'::GEOMETRY` : `'POINT(${coord[0]} ${coord[1]})'::GEOMETRY`
+      })
+      query += `]::GEOMETRY[], 'car', ARRAY['mode_type=shortest']::text[])`
+      runQuery(query).then(httpResp => {
+        cartodb.L.geoJson(angular.fromJson(httpResp.data.rows[0].shape)).addTo(map)
+        resolve()
+      }).catch(reject)
+    })
   }
 }

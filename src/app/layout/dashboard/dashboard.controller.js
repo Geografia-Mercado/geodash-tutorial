@@ -5,7 +5,6 @@ export default class {
   }
 
   viewUpload (uploadId) {
-    console.log('upload Id', uploadId)
     this.$state.go('map', {uploadId})
   }
 }
