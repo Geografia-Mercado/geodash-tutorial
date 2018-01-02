@@ -8,7 +8,8 @@ export default function ($q, $http) {
   return {
     foo: () => console.log('carto', cartodb),
     geocodeAddress: geocodeAddress,
-    createMap: createMap
+    createMap: createMap,
+    drawMarker: drawMarker
   }
   let map = null
   let mapTileLayer = null
@@ -47,5 +48,9 @@ export default function ($q, $http) {
         resolve({lon, lat, address: addressText})
       }).catch(reject)
     })
+  }
+
+  function drawMarker (lat, lon, msg) {
+    cartodb.L.marker([lat, lon], {title: msg}).addTo(map)
   }
 }
